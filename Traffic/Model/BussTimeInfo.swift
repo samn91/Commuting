@@ -35,11 +35,12 @@ struct BussTimeInfo {
     var name:String
     var time:Date
     var stopName:String?
-    init(n:String,t:Date,s:String?) {
-       
+    var isRealTime:Bool
+    init(n:String,t:Date,s:String?,r:Bool) {
         name=n
         time=t
         stopName=s
+        isRealTime=r
     }
     
 }

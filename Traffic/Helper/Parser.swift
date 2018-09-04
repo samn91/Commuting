@@ -45,12 +45,13 @@ class Parser {
             let dateString = data.getText(id: "JourneyDateTime")
             var arrivalTime=formatter.date(from: dateString )
             var addedMinute = 0.0
+            let isRealTime = data["RealTime"].children.count > 0
             if data["RealTime"].children.count > 0 {
                 //print(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text)
                 addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
             }
             arrivalTime?.addTimeInterval(addedMinute)
-            return BussTimeInfo(n: name,t: arrivalTime!,s:stopName)
+            return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime)
             
         }
         

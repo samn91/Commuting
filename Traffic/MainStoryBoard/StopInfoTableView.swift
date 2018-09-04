@@ -34,7 +34,9 @@ class StopInfoTableView: UITableViewController {
         if stopInfo.stopName == nil{
             cell.textLabel?.font=cell.textLabel?.font.withSize(13.0)
         }
-        cell.textLabel?.text = (stopInfo.stopName == nil ? "" :stopInfo.stopName! + ": ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
+        cell.textLabel?.text =
+            (stopInfo.isRealTime ? "" : "*")  +
+            (stopInfo.stopName == nil ? "" :stopInfo.stopName! + ": ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
         return cell
     }
     
@@ -59,7 +61,7 @@ class StopInfoTableView: UITableViewController {
                 }
             }
         }
-      
+        
     }
     
 }

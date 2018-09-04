@@ -1,12 +1,10 @@
 //
-//  StopSelectorTableView.swift
+//  StopsSelectorTableView.swift
 //  Traffic
 //
 //  Created by Samer Naoura on 2018-08-30.
 //  Copyright © 2018 Samer Naoura. All rights reserved.
 //
-
-import Foundation
 
 import Foundation
 import UIKit
@@ -17,7 +15,6 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar:UISearchBar!
     override func viewDidLoad() {
         searchBar.delegate=self
-        tableView.delegate = self
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,10 +28,8 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selected=rows[indexPath.row]
-        Saver.addBussStop(stop: selected)
-        navigationController?.popViewController(animated: true)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(rows[indexPath.row])
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -46,8 +41,11 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
         }
         
     }
+  
     
-    
+    override func tableView(){
+        
+    }
     
     
 }
