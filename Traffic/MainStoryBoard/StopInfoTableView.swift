@@ -12,26 +12,29 @@ import UIKit
 
 class StopInfoTableView: UITableViewController {
     
-    
     @IBOutlet weak var refreshView: UIRefreshControl!
     var rows : Array<BussTimeInfo> = []
     var bussStops:Array<BussStop> = []
     var downloadCount=0
     
-    
     override func viewDidLoad() {
         downloadContent()
+        NotificationCenter.default.addObserver(self, selector:#selector(downloadContent), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rows.count
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         let stopInfo=self.rows[indexPath.row]
         
-        if stopInfo.stopName == nil{
+        if stopInfo.stopName != nil{
             cell.textLabel?.font=cell.textLabel?.font.withSize(13.0)
         }
         cell.textLabel?.text =
@@ -45,7 +48,7 @@ class StopInfoTableView: UITableViewController {
     }
     
     
-    func downloadContent()  {
+    @objc func downloadContent()  {
         rows.removeAll()
         tableView.reloadData()
         downloadCount=self.bussStops.count
