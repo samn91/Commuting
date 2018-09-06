@@ -14,6 +14,8 @@ import CoreLocation
 class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate {
     
     
+    static let prefix = ["Malmö"]
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var hereButton: UIButton!
     
@@ -45,13 +47,24 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
             // stops=[BussStop(i:"80821",n:nil)]
         }
         if segue.identifier == "stopInfoSegue"{
-            var stops = sender as? [BussStop]
+            let stops = sender as? [BussStop]
             if let tv = segue.destination as? StopInfoTableView, (stops != nil) {
-                tv.bussStops=stops!
+                tv.bussStops = stops!.map {
+                    if var name = $0.name {
+                        for px in ViewController.prefix {
+                            if name.starts(with: px){
+                                name =  name.components(separatedBy: " ").dropFirst(1).joined()
+                                return BussStop(i: $0.id,n: name)
+                            }
+                        }
+                    }
+                    return BussStop(i: $0.id,n: nil)
+                }
                 tv.title=(sender as? UIButton)?.titleLabel?.text
             }
         }
     }
+    
     @IBAction func workClicked(_ sender: UIButton) {
         openStopInfoTableView(list: [BussStop(i:"80821",n:nil)])
     }
