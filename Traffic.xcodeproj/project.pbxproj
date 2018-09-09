@@ -10,6 +10,7 @@
 		A8364AB09AB3F3B601F55F10 /* Pods_Traffic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10019AFC5964F6606050D42E /* Pods_Traffic.framework */; };
 		F06667F721350091007FEE70 /* BussStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06667F621350091007FEE70 /* BussStop.swift */; };
 		F0A82E4E213ADDCA009567FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A82E4D213ADDC9009567FA /* GoogleService-Info.plist */; };
+		F0A82E50214437DC009567FA /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A82E4F214437DC009567FA /* RouteInfo.swift */; };
 		F0E0450B213A237100828DF3 /* Saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0450A213A237100828DF3 /* Saver.swift */; };
 		F0EBA31E21347E2E002CBF9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */; };
 		F0EBA32021347E2E002CBF9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31F21347E2E002CBF9D /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 		F06667F22134934C007FEE70 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = "<group>"; };
 		F06667F621350091007FEE70 /* BussStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BussStop.swift; sourceTree = "<group>"; };
 		F0A82E4D213ADDC9009567FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F0A82E4F214437DC009567FA /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
 		F0E0450A213A237100828DF3 /* Saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saver.swift; sourceTree = "<group>"; };
 		F0EBA31A21347E2E002CBF9D /* Traffic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Traffic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				F06667F621350091007FEE70 /* BussStop.swift */,
 				F0F5A11B2135DD91001CBD63 /* BussTimeInfo.swift */,
+				F0A82E4F214437DC009567FA /* RouteInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,7 +184,7 @@
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -271,6 +274,7 @@
 			files = (
 				F0F5A1222137AF54001CBD63 /* Extension.swift in Sources */,
 				F06667F721350091007FEE70 /* BussStop.swift in Sources */,
+				F0A82E50214437DC009567FA /* RouteInfo.swift in Sources */,
 				F0EBA33221348368002CBF9D /* Parser.swift in Sources */,
 				F0E0450B213A237100828DF3 /* Saver.swift in Sources */,
 				F0EBA32021347E2E002CBF9D /* ViewController.swift in Sources */,

@@ -12,12 +12,41 @@ import Foundation
 import UIKit
 
 class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
+    private static let STOP = 0
+    private static let ROUTE = 1
+    private static let FROM = "From: "
+    private static let TO = "To: "
+    
     
     private var rows:Array<BussStop>=[]
+    private var inputType = StopSelectorTableView.STOP
+    private var lastSelected:BussStop?=nil
+    
+    private var routeSelector:String? = nil {
+        didSet{
+            fromLabel.font = UIFont.systemFont(ofSize: 17.0)
+            toLabel.font = UIFont.systemFont(ofSize: 17.0)
+            if  routeSelector == StopSelectorTableView.FROM {
+                fromLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+            } else if  routeSelector == StopSelectorTableView.TO {
+                toLabel.font = UIFont.boldSystemFont(ofSize: 18.0)
+            }
+        }
+    }
+    
+    
+    
     @IBOutlet weak var searchBar:UISearchBar!
+    @IBOutlet weak var routeContainer: UIStackView!
+    
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var toLabel: UILabel!
+    
     override func viewDidLoad() {
         searchBar.delegate=self
         tableView.delegate = self
+        routeSelector = StopSelectorTableView.FROM
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,10 +61,34 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selected=rows[indexPath.row]
-        Saver.addBussStop(stop: selected)
-        navigationController?.popViewController(animated: true)
+        var selected=rows[indexPath.row]
+        switch inputType {
+        case StopSelectorTableView.STOP:
+            Saver.addBussStop(stop: selected)
+            existView()
+        case StopSelectorTableView.ROUTE:
+            selected = Parser.removeKnownPrifix(forStop: selected)
+            if routeSelector == StopSelectorTableView.FROM {
+                routeSelector = StopSelectorTableView.TO
+                fromLabel.text = StopSelectorTableView.FROM + selected.name!
+            } else {
+                toLabel.text = StopSelectorTableView.TO + selected.name!
+                Saver.addRoute(route: RouteInfo(from: lastSelected!, to: selected))
+                existView()
+            }
+        default: break
+            
+        }
+        
+        lastSelected=selected
+        searchBar.text = ""
     }
+    
+    @IBAction func routeValueChanged(_ sender: UISegmentedControl) {
+        routeContainer.isHidden =  sender.selectedSegmentIndex == StopSelectorTableView.STOP
+        inputType = sender.selectedSegmentIndex
+    }
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if  searchText.count > 1 {
@@ -45,6 +98,10 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
             }
         }
         
+    }
+    
+    func existView()  {
+        navigationController?.popViewController(animated: true)
     }
     
     

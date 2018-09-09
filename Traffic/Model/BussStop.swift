@@ -7,7 +7,12 @@
 //
 
 import Foundation
-struct BussStop {
+import SWXMLHash
+struct BussStop : CustomStringConvertible {
+    var description: String{
+        return name ?? ""
+    }
+    
     /*
      <Point>
      <Id>80120</Id>
@@ -24,5 +29,13 @@ struct BussStop {
         name=n
     }
     
+    static func fromXml(_ xml:XMLIndexer)-> BussStop{
+      return  BussStop(i: xml.getText(id: "Id"),n: xml.getText(id: "Name"))
+    }
+    
+    
+    func toXmlString() -> String {
+        return "<Stop><Id>\(id)</Id><Name>\(name!)</Name></Stop>"
+    }
     
 }

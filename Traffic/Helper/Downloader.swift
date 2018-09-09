@@ -46,6 +46,21 @@ class Downloader {
         }
     }
     
+    static func downloadRoute(_ route:RouteInfo , executeAfter : @escaping (_ list:Array<BussTimeInfo>) -> Void){
+        
+        let urlString  = "http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&selPointFr=\(route.from)|\(route.from.id)|0&selPointTo=\(route.to)|\(route.to.id)|0".addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
+        let url=URL(string: urlString)!
+        download(url) { (data) in
+            let parser =   Parser.getBussStopInfoForRoute(data: data)
+            print(parser)
+            DispatchQueue.main.async {
+                executeAfter(parser)
+            }
+        }
+        
+        
+    }
+    
     static  func download(_ url:URL, executeAfter:@escaping (_ data:Data) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {

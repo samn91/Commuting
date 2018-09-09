@@ -14,12 +14,10 @@ import CoreLocation
 class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegate, CLLocationManagerDelegate {
     
     
-    static let prefix = ["Malmö"]
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var hereButton: UIButton!
     
-    var rows:Array<BussStop> = []
+    var rows:Array<CustomStringConvertible> = []
     
     
     let locationManager = CLLocationManager()
@@ -38,7 +36,10 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        rows = Saver.getBussStop()
+        rows.removeAll()
+        Saver.getRoutes().forEach { rows.append($0) }
+        Saver.getBussStop().forEach { rows.append($0) }
+        
         tableView.reloadData()
     }
     
@@ -47,20 +48,13 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
             // stops=[BussStop(i:"80821",n:nil)]
         }
         if segue.identifier == "stopInfoSegue"{
-            let stops = sender as? [BussStop]
-            if let tv = segue.destination as? StopInfoTableView, (stops != nil) {
-                tv.bussStops = stops!.map {
-                    if var name = $0.name {
-                        for px in ViewController.prefix {
-                            if name.starts(with: px){
-                                name =  name.components(separatedBy: " ").dropFirst(1).joined()
-                                return BussStop(i: $0.id,n: name)
-                            }
-                        }
-                    }
-                    return BussStop(i: $0.id,n: nil)
+            if let tv = segue.destination as? StopInfoTableView {
+                if  let stops = sender as? [BussStop] {
+                    tv.bussStops = Parser.removeKnownPrifix(stops: stops)
+                    tv.title=(sender as? UIButton)?.titleLabel?.text
+                } else if let route = sender as? RouteInfo {
+                    tv.routeInfo = route
                 }
-                tv.title=(sender as? UIButton)?.titleLabel?.text
             }
         }
     }
@@ -85,20 +79,28 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         //cell.textLabel?.font=cell.textLabel?.font.withSize(13.0)
-        cell.textLabel?.text=rows[indexPath.row].name ?? ""
+        cell.textLabel?.text = rows[indexPath.row].description
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = BussStop(i: rows[indexPath.row].id,n: nil)
-        openStopInfoTableView(list: [item])
+        if let stop = rows[indexPath.row] as? BussStop {
+            let item = BussStop(i: stop.id,n: nil)
+            openStopInfoTableView(list: [item])
+        } else if let route = rows[indexPath.row] as? RouteInfo {
+            openStopInfoTableView(forRoute: route)
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            if let stop = rows[indexPath.row] as? BussStop {
+                Saver.removeBussStop(stop: stop)
+            } else  if let route = rows[indexPath.row] as? RouteInfo {
+                Saver.removeRoute(route: route)
+            }
             self.rows.remove(at: indexPath.row)
-            Saver.saveBussStops(list: self.rows)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -113,9 +115,14 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         }
         
     }
+
     
-    func openStopInfoTableView(list:Array<BussStop>) {
+    func openStopInfoTableView(list: Array<BussStop>) {
         self.performSegue(withIdentifier: "stopInfoSegue", sender: list)
+    }
+    
+    func openStopInfoTableView(forRoute route: RouteInfo) {
+        self.performSegue(withIdentifier: "stopInfoSegue", sender: route)
     }
     
 }

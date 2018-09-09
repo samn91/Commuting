@@ -3,6 +3,25 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #1 in ViewController.viewDidAppear(_:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.viewDidAppear(_:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rows">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in static Parser.getBussStopInfoForRoute(data:):Parser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "SWXMLHash.parse(data)[&quot;soap:Envelope&quot;][&quot;soap:Body&quot;][&quot;GetJourneyResponse&quot;][&quot;GetJourneyResult&quot;][&quot;Journeys&quot;][&quot;Journey&quot;].all">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in static Parser.bussStopToString(bussStops:):Parser.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,15 +30,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ViewController.viewDidAppear(_:):ViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static Parser.bussStopToString(bussStops:):Parser.swift">
+         contextName = "static Parser.parseStringToRoutes(text:):Parser.swift">
          <PersistentStrings>
             <PersistentString
-               value = "bussStops[1].name!">
+               value = "xml.element.text">
+            </PersistentString>
+            <PersistentString
+               value = "SWXMLHash.parse(text!)[&quot;List&quot;][&quot;Route&quot;][&quot;From&quot;][&quot;Stop&quot;][&quot;Id&quot;].element.text">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in static Parser.parseStringToBusStops(text:):Parser.swift">
       </ContextState>
       <ContextState
          contextName = "static Parser.parseStringToBusStops(text:):Parser.swift">
@@ -30,13 +52,38 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in static Parser.parseStringToRoutes(text:):Parser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "point.element.text">
+            </PersistentString>
+            <PersistentString
+               value = "text">
+            </PersistentString>
+            <PersistentString
+               value = "point[&quot;To&quot;][&quot;Name&quot;].element">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static Downloader.downloadRoute(_:executeAfter:):Downloader.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;http://www.labs.skanetrafiken.se/v2.2/resultspage.asp?cmdaction=next&amp;selPointFr=\(route.from.name)|\(route.from.id)|0&amp;selPointTo=\(route.to.name)|\(route.to.id)|0&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "&quot;\(route.from)&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static Saver.addBussStop(stop:):Saver.swift">
       </ContextState>
       <ContextState
-         contextName = "ViewController.viewDidAppear(_:):ViewController.swift">
+         contextName = "static Parser.getBussStopInfoForRoute(data:):Parser.swift">
          <PersistentStrings>
             <PersistentString
-               value = "rows">
+               value = "SWXMLHash.parse(data)[&quot;soap:Envelope&quot;][&quot;soap:Body&quot;][&quot;GetJourneyResponse&quot;][&quot;GetJourneyResult&quot;][&quot;Journeys&quot;][&quot;Journey&quot;].all">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -49,7 +96,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in static Parser.parseStringToBusStops(text:):Parser.swift">
+         contextName = "static Parser.bussStopToString(bussStops:):Parser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bussStops[1].name!">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

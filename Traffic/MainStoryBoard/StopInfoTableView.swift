@@ -13,9 +13,15 @@ import UIKit
 class StopInfoTableView: UITableViewController {
     
     @IBOutlet weak var refreshView: UIRefreshControl!
-    var rows : Array<BussTimeInfo> = []
-    var bussStops:Array<BussStop> = []
-    var downloadCount=0
+    private var rows : Array<BussTimeInfo> = []
+    private var downloadCount = 0
+    var routeInfo:RouteInfo?=nil
+    var bussStops:Array<BussStop>? = nil
+    {
+        didSet{
+            downloadCount=bussStops?.count ?? 0
+        }
+    }
     
     override func viewDidLoad() {
         downloadContent()
@@ -51,19 +57,28 @@ class StopInfoTableView: UITableViewController {
     @objc func downloadContent()  {
         rows.removeAll()
         tableView.reloadData()
-        downloadCount=self.bussStops.count
         refreshView.beginRefreshing()
-        for stop in  self.bussStops {
-            Downloader.downloadBussInfo(stop: stop) { (list) in
-                self.downloadCount -= 1
-                self.rows+=list
-                if self.downloadCount == 0{
-                    self.rows.sort{ $0.time<$1.time }
-                    self.tableView.reloadData()
-                    self.refreshView.endRefreshing()
+        
+        if routeInfo != nil {
+            Downloader.downloadRoute(routeInfo!){
+                self.rows=$0
+                self.tableView.reloadData()
+                self.refreshView.endRefreshing()
+            }
+        } else if bussStops != nil {
+            for stop in  self.bussStops! {
+                Downloader.downloadBussInfo(stop: stop) { (list) in
+                    self.downloadCount -= 1
+                    self.rows+=list
+                    if self.downloadCount == 0 {
+                        self.rows.sort{ $0.time<$1.time }
+                        self.tableView.reloadData()
+                        self.refreshView.endRefreshing()
+                    }
                 }
             }
         }
+        
         
     }
     
