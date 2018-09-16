@@ -47,6 +47,7 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
         tableView.delegate = self
         routeSelector = StopSelectorTableView.FROM
         
+        calculateHeader()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,6 +88,7 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
     @IBAction func routeValueChanged(_ sender: UISegmentedControl) {
         routeContainer.isHidden =  sender.selectedSegmentIndex == StopSelectorTableView.STOP
         inputType = sender.selectedSegmentIndex
+        calculateHeader()
     }
     
     
@@ -104,6 +106,18 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    func calculateHeader() {
+         let height = CGFloat(28.0 * (inputType == StopSelectorTableView.STOP ? 3 : 4 ))
+        if let headerView = tableView.tableHeaderView {
+            //let height = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+            var headerFrame = headerView.frame
+            if height != headerFrame.size.height {
+                headerFrame.size.height = height
+                headerView.frame = headerFrame
+                tableView.tableHeaderView = headerView
+            }
+        }
+    }
     
     
     
