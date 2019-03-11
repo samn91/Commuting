@@ -49,6 +49,12 @@ class StopInfoTableView: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var selected=rows[indexPath.row]
+       
+        
+    }
+    
     @IBAction func onRefreshing(_ sender: UIRefreshControl) {
         self.downloadContent()
     }

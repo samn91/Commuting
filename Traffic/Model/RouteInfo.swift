@@ -10,7 +10,7 @@ import Foundation
 class RouteInfo : CustomStringConvertible {
 
     var description: String {
-        return from.name! + " ➜ " +  to.name!
+        return from.name! + " ➝ " +  to.name!
     }
     
     let from : BussStop

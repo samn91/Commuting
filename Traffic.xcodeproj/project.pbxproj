@@ -15,10 +15,10 @@
 		F0EBA31E21347E2E002CBF9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */; };
 		F0EBA32021347E2E002CBF9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31F21347E2E002CBF9D /* ViewController.swift */; };
 		F0EBA32321347E2E002CBF9D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0EBA32121347E2E002CBF9D /* Main.storyboard */; };
-		F0EBA32521347E30002CBF9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0EBA32421347E30002CBF9D /* Assets.xcassets */; };
 		F0EBA32821347E30002CBF9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0EBA32621347E30002CBF9D /* LaunchScreen.storyboard */; };
 		F0EBA3302134832D002CBF9D /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA32F2134832D002CBF9D /* Downloader.swift */; };
 		F0EBA33221348368002CBF9D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA33121348368002CBF9D /* Parser.swift */; };
+		F0EF98ED2236FE6500B6571D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0EF98EC2236FE6500B6571D /* Assets.xcassets */; };
 		F0F5A11C2135DD91001CBD63 /* BussTimeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F5A11B2135DD91001CBD63 /* BussTimeInfo.swift */; };
 		F0F5A1202136F875001CBD63 /* StopInfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F5A11F2136F875001CBD63 /* StopInfoTableView.swift */; };
 		F0F5A1222137AF54001CBD63 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F5A1212137AF54001CBD63 /* Extension.swift */; };
@@ -40,11 +40,11 @@
 		F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0EBA31F21347E2E002CBF9D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F0EBA32221347E2E002CBF9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F0EBA32421347E30002CBF9D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0EBA32721347E30002CBF9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0EBA32921347E30002CBF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0EBA32F2134832D002CBF9D /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		F0EBA33121348368002CBF9D /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		F0EF98EC2236FE6500B6571D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0F5A11B2135DD91001CBD63 /* BussTimeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BussTimeInfo.swift; sourceTree = "<group>"; };
 		F0F5A11F2136F875001CBD63 /* StopInfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopInfoTableView.swift; sourceTree = "<group>"; };
 		F0F5A1212137AF54001CBD63 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -118,6 +118,7 @@
 		F0EBA31121347E2E002CBF9D = {
 			isa = PBXGroup;
 			children = (
+				F0EF98EC2236FE6500B6571D /* Assets.xcassets */,
 				F0EBA31C21347E2E002CBF9D /* Traffic */,
 				F0EBA31B21347E2E002CBF9D /* Products */,
 				49FCFA308F77E72EF6645910 /* Pods */,
@@ -139,7 +140,6 @@
 				F0A82E4D213ADDC9009567FA /* GoogleService-Info.plist */,
 				F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */,
 				F0E0450D213A619600828DF3 /* MainStoryBoard */,
-				F0EBA32421347E30002CBF9D /* Assets.xcassets */,
 				F0EBA32621347E30002CBF9D /* LaunchScreen.storyboard */,
 				F0EBA32921347E30002CBF9D /* Info.plist */,
 				F0E0450C213A616F00828DF3 /* Helper */,
@@ -215,7 +215,7 @@
 			files = (
 				F0EBA32821347E30002CBF9D /* LaunchScreen.storyboard in Resources */,
 				F0A82E4E213ADDCA009567FA /* GoogleService-Info.plist in Resources */,
-				F0EBA32521347E30002CBF9D /* Assets.xcassets in Resources */,
+				F0EF98ED2236FE6500B6571D /* Assets.xcassets in Resources */,
 				F0EBA32321347E2E002CBF9D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,7 +429,7 @@
 			baseConfigurationReference = 4B3E9CE136CB7975DCFE6B51 /* Pods-Traffic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HHGJQCFUKD;
 				INFOPLIST_FILE = Traffic/Info.plist;
@@ -441,8 +441,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.TrafficReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -451,7 +452,7 @@
 			baseConfigurationReference = 8C848782D5099AC9739C7F2B /* Pods-Traffic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HHGJQCFUKD;
 				INFOPLIST_FILE = Traffic/Info.plist;
@@ -463,8 +464,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.TrafficReminder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

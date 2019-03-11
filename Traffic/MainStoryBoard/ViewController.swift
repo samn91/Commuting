@@ -59,10 +59,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         }
     }
     
-    @IBAction func workClicked(_ sender: UIButton) {
-        openStopInfoTableView(list: [BussStop(i:"80821",n:nil)])
-    }
-    
     @IBAction func hereCliecked(_ sender: UIButton) {
         sender.isEnabled = false
         locationManager.delegate = self;

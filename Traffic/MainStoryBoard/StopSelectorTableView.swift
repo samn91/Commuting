@@ -94,7 +94,7 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if  searchText.count > 1 {
-            Downloader.downloadBussStop(searchText) { (list) in
+            Downloader.downloadBussStop(searchText) { list in
                 self.rows=list
                 self.tableView.reloadData()
             }
