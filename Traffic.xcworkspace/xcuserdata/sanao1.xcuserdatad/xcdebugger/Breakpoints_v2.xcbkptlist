@@ -312,7 +312,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traffic/MainStoryBoard/StopSelectorTableView.swift"
-            timestampString = "574029427.4890471"
+            timestampString = "574110914.37865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -388,7 +388,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traffic/Helper/Parser.swift"
@@ -398,6 +398,86 @@
             startingLineNumber = "48"
             endingLineNumber = "48"
             landmarkName = "getBussStopInfoForRoute(data:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Traffic/MainStoryBoard/StopInfoTableView.swift"
+            timestampString = "574110914.37878"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "downloadContent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Traffic/MainStoryBoard/StopInfoTableView.swift"
+            timestampString = "574110914.37929"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "downloadContent()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Traffic.StopInfoTableView.downloadContent() -&gt; ()"
+                  moduleName = "Traffic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanao1/Desktop/Traffic/Traffic/MainStoryBoard/StopInfoTableView.swift"
+                  timestampString = "574110430.884177"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "1839">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;Traffic.BussTimeInfo&gt;) -&gt; () in Traffic.StopInfoTableView.downloadContent() -&gt; ()"
+                  moduleName = "Traffic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sanao1/Desktop/Traffic/Traffic/MainStoryBoard/StopInfoTableView.swift"
+                  timestampString = "574110430.887365"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "53">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Traffic/MainStoryBoard/StopInfoTableView.swift"
+            timestampString = "574110914.37953"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "downloadContent()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

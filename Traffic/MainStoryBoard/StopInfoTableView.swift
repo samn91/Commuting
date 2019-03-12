@@ -80,6 +80,7 @@ class StopInfoTableView: UITableViewController {
                         self.rows.sort{ $0.time<$1.time }
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
+                        self.downloadCount=self.bussStops?.count ?? 0
                     }
                 }
             }
