@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     
     var rows:Array<CustomStringConvertible> = []
     
+    var hadLocationUpdate=false
     
     let locationManager = CLLocationManager()
     
@@ -44,9 +45,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "workSegue"{
-            // stops=[BussStop(i:"80821",n:nil)]
-        }
         if segue.identifier == "stopInfoSegue"{
             if let tv = segue.destination as? StopInfoTableView {
                 if  let stops = sender as? [BussStop] {
@@ -102,12 +100,17 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if self.hadLocationUpdate == true{
+            return
+        }
+        self.hadLocationUpdate=true
         manager.stopUpdatingLocation()
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         Downloader.downloadBussStopForPoint(String(locValue.latitude), String(locValue.longitude)) { (list) in
             self.openStopInfoTableView(list: list)
             self.hereButton.isEnabled=true
+            self.hadLocationUpdate=false
         }
         
     }
