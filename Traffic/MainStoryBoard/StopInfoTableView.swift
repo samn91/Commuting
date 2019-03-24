@@ -72,6 +72,9 @@ class StopInfoTableView: UITableViewController {
                 self.refreshView.endRefreshing()
             }
         } else if bussStops != nil {
+            if self.downloadCount == 1 { // show title
+                navigationController?.title=self.bussStops?[0].name
+            }
             for stop in  self.bussStops! {
                 Downloader.downloadBussInfo(stop: stop) { (list) in
                     self.downloadCount -= 1
