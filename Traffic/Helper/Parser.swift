@@ -10,7 +10,7 @@ import Foundation
 import SWXMLHash
 class Parser {
     
-    static let prefix = ["Malmö"]
+    static let prefix = ["Malmö","Lund"]
     
     static var formatter:DateFormatter{
         get{
@@ -127,12 +127,14 @@ class Parser {
         if var name = stop.name {
             for px in Parser.prefix {
                 if name.starts(with: px) {
-                    name =  name.components(separatedBy: " ").dropFirst(1).joined()
-                    return BussStop(i: stop.id,n: name)
+                    if name.count > px.count+3 {
+                        name =  name.components(separatedBy: " ").dropFirst(1).joined()
+                    }
+                    return BussStop(i: stop.id, n: name)
                 }
             }
         }
-        return BussStop(i: stop.id,n: nil)
+        return stop
     }
     
 }
