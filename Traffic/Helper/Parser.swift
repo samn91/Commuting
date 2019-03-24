@@ -56,7 +56,7 @@ class Parser {
                     addedMinute =  60 * Double(route["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
                 }
                 arrivalTime?.addTimeInterval(addedMinute)
-                return BussTimeInfo(n: name,t: arrivalTime!,s:nil, r:isRealTime)
+                return BussTimeInfo(n: name,t: arrivalTime!,s:nil, r:isRealTime, sp:"TODO")
         }
     }
     
@@ -66,6 +66,7 @@ class Parser {
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetDepartureArrivalResponse"]["GetDepartureArrivalResult"]["Lines"]["Line"].all.map{ data in
             let dateString = data.getText(id: "JourneyDateTime")
             let name = data.getText(id: "Name") + " " + data.getText(id: "Towards")
+            let stopPoint = data.getText(id:"StopPoint")
             var arrivalTime = Parser.formatter.date(from: dateString )
             var addedMinute = 0.0
             let isRealTime = data["RealTime"].children.count > 0
@@ -73,7 +74,7 @@ class Parser {
                 addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
             }
             arrivalTime?.addTimeInterval(addedMinute)
-            return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime)
+            return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime,sp:stopPoint)
         }
         
     }
@@ -87,7 +88,7 @@ class Parser {
             addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
         }
         arrivalTime?.addTimeInterval(addedMinute)
-        return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime)
+        return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime, sp: "TODO")
         
     }
     

@@ -45,7 +45,7 @@ class StopInfoTableView: UITableViewController {
         }
         cell.textLabel?.text =
             (stopInfo.isRealTime ? "" : "*")  +
-            (stopInfo.stopName == nil ? "" :stopInfo.stopName! + ": ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
+            (stopInfo.stopName == nil ? "" :"\(stopInfo.stopName) +  \(stopInfo.stopPoint): ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
         return cell
     }
     
@@ -75,7 +75,7 @@ class StopInfoTableView: UITableViewController {
             if self.downloadCount == 1 { // show title
                 navigationController?.title=self.bussStops?[0].name
             }
-            for stop in  self.bussStops! {
+            for stop in self.bussStops! {
                 Downloader.downloadBussInfo(stop: stop) { (list) in
                     self.downloadCount -= 1
                     self.rows+=list

@@ -36,11 +36,13 @@ struct BussTimeInfo {
     var time:Date
     var stopName:String?
     var isRealTime:Bool
-    init(n:String,t:Date,s:String?,r:Bool) {
+    let stopPoint:String
+    init(n:String,t:Date,s:String?,r:Bool,sp:String) {
         name=n
         time=t
         stopName=s
         isRealTime=r
+        stopPoint=sp
     }
     
 }

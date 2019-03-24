@@ -6,18 +6,21 @@
          contextName = "closure #1 in ViewController.viewDidAppear(_:):ViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "ViewController.viewDidAppear(_:):ViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "rows">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "StopSelectorTableView.tableView(_:didSelectRowAt:):StopSelectorTableView.swift">
       </ContextState>
       <ContextState
          contextName = "closure #2 in static Parser.getBussStopInfoForRoute(data:):Parser.swift">
          <PersistentStrings>
             <PersistentString
                value = "SWXMLHash.parse(data)[&quot;soap:Envelope&quot;][&quot;soap:Body&quot;][&quot;GetJourneyResponse&quot;][&quot;GetJourneyResult&quot;][&quot;Journeys&quot;][&quot;Journey&quot;].all">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.viewDidAppear(_:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rows">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -62,6 +65,14 @@
             </PersistentString>
             <PersistentString
                value = "point[&quot;To&quot;][&quot;Name&quot;].element">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in static Parser.getBussStopInfo(data:stopName:):Parser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data.getText(id:&quot;StopPoint&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
