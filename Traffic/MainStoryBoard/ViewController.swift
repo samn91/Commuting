@@ -112,9 +112,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
             self.hereButton.isEnabled=true
             self.hadLocationUpdate=false
         }
-        
     }
-
     
     func openStopInfoTableView(list: Array<BussStop>) {
         self.performSegue(withIdentifier: "stopInfoSegue", sender: list)
