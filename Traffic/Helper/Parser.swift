@@ -128,7 +128,7 @@ class Parser {
             for px in Parser.prefix {
                 if name.starts(with: px) {
                     if name.count > px.count+3 {
-                        name =  name.components(separatedBy: " ").dropFirst(1).joined()
+                        name =  name.components(separatedBy: " ").dropFirst(1).joined(separator: " ")
                     }
                     return BussStop(i: stop.id, n: name)
                 }
