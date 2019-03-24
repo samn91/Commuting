@@ -45,7 +45,7 @@ class StopInfoTableView: UITableViewController {
         }
         cell.textLabel?.text =
             (stopInfo.isRealTime ? "" : "*")  +
-            (stopInfo.stopName == nil ? "" :"\(stopInfo.stopName) +  \(stopInfo.stopPoint): ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
+            (stopInfo.stopName == nil ? "" :"\(stopInfo.stopName!)-\(stopInfo.stopPoint): ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
         return cell
     }
     
