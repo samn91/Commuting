@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 
-class StopInfoTableView: UITableViewController {
+class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet var tableView: UITableView!
     @IBOutlet weak var refreshView: UIRefreshControl!
     private var rows : Array<BussTimeInfo> = []
     private var downloadCount = 0
@@ -26,9 +27,11 @@ class StopInfoTableView: UITableViewController {
     override func viewDidLoad() {
         downloadContent()
         NotificationCenter.default.addObserver(self, selector:#selector(downloadContent), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rows.count
     }
     
@@ -36,7 +39,7 @@ class StopInfoTableView: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
         let stopInfo=self.rows[indexPath.row]
         
@@ -49,7 +52,7 @@ class StopInfoTableView: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var selected=rows[indexPath.row]
        
         
