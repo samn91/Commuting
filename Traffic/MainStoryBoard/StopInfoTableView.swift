@@ -9,18 +9,17 @@
 import Foundation
 import UIKit
 
-
 class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var refreshView: UIRefreshControl!
     private var rows : Array<BussTimeInfo> = []
-    private var downloadCount = 0
+    private var numberOfBussStopDownloaded = 0
     var routeInfo:RouteInfo?=nil
     var bussStops:Array<BussStop>? = nil
     {
         didSet{
-            downloadCount=bussStops?.count ?? 0
+            numberOfBussStopDownloaded=bussStops?.count ?? 0
         }
     }
     
@@ -41,14 +40,23 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
-        let stopInfo=self.rows[indexPath.row]
+        let stopInfo = self.rows[indexPath.row]
         
-        if stopInfo.stopName != nil{
-            cell.textLabel?.font=cell.textLabel?.font.withSize(13.0)
+        let multipleStops = self.bussStops!.count > 1
+        let relativeTime = Parser.timeFormatter.string(from: stopInfo.time) +
+            (stopInfo.isRealTime ? " " : "*")
+        let stopPoint = " \(stopInfo.stopPoint) "
+        let stopNameAndPoint = multipleStops ?  "\(stopInfo.stopName)-\(stopInfo.stopPoint):" : stopPoint
+        if multipleStops {
+            cell.textLabel?.font = cell.textLabel?.font.withSize(13.0)
+        } else{
+            cell.textLabel?.font = cell.textLabel?.font.withSize(16.0)
         }
-        cell.textLabel?.text =
-            (stopInfo.isRealTime ? "" : "*")  +
-            (stopInfo.stopName == nil ? "" :"\(stopInfo.stopName!)-\(stopInfo.stopPoint): ")  + Parser.timeFormatter.string(from: stopInfo.time) + " - " + stopInfo.name
+        cell.textLabel?.text = stopNameAndPoint + " "
+              + relativeTime + " - " + stopInfo.name
+        
+        
+        cell.textLabel?.highlightRange(stopPoint)//
         return cell
     }
     
@@ -68,31 +76,43 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         tableView.reloadData()
         refreshView.beginRefreshing()
         
-        if routeInfo != nil {
+        if routeInfo != nil {//todo remove when implementing filters
             Downloader.downloadRoute(routeInfo!){
                 self.rows=$0
                 self.tableView.reloadData()
                 self.refreshView.endRefreshing()
             }
         } else if bussStops != nil {
-            if self.downloadCount == 1 { // show title
+            if self.bussStops?.count == 1 { // show title
                 navigationController?.title=self.bussStops?[0].name
             }
             for stop in self.bussStops! {
                 Downloader.downloadBussInfo(stop: stop) { (list) in
-                    self.downloadCount -= 1
+                    self.numberOfBussStopDownloaded -= 1
                     self.rows+=list
-                    if self.downloadCount == 0 {
+                    if self.numberOfBussStopDownloaded == 0 {
                         self.rows.sort{ $0.time<$1.time }
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
-                        self.downloadCount=self.bussStops?.count ?? 0
+                        self.numberOfBussStopDownloaded=self.bussStops?.count ?? 0
                     }
                 }
             }
         }
-        
-        
     }
-    
+}
+
+extension UILabel{
+    func highlightRange(_ textToHightlight:String){
+        //let range = NSRange(location: from,length: to-from)
+        
+        let range = (text as! NSString).range(of: textToHightlight)
+        
+        let attributedText = NSMutableAttributedString.init(string: text!)
+        UIFont(name: "Courier", size: UIFont.systemFontSize)
+        attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont.monospacedDigitSystemFont(ofSize: UIFont.systemFontSize, weight: UIFont.Weight.bold) , range: range)
+        attributedText.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor.green , range: range)
+        attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white , range: range)
+        self.attributedText = attributedText
+    }
 }

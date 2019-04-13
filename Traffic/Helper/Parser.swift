@@ -41,7 +41,7 @@ class Parser {
     }
     
     
-    static func getBussStopInfoForRoute(data:Data) -> Array<BussTimeInfo> {
+    static func getBussStopInfoForRoute(data:Data,stopName:String) -> Array<BussTimeInfo> {
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetJourneyResponse"]["GetJourneyResult"]["Journeys"]["Journey"].all
             .filter({ $0["RouteLinks"]["RouteLink"].all.count == 1 })
             .map{journy in
@@ -56,12 +56,12 @@ class Parser {
                     addedMinute =  60 * Double(route["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
                 }
                 arrivalTime?.addTimeInterval(addedMinute)
-                return BussTimeInfo(n: name,t: arrivalTime!,s:nil, r:isRealTime, sp:"TODO")
+                return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime, sp:"TODO")
         }
     }
     
     
-    static func getBussStopInfo(data:Data,stopName:String? ) -> Array<BussTimeInfo> {
+    static func getBussStopInfo(data:Data,stopName:String ) -> Array<BussTimeInfo> {
         
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetDepartureArrivalResponse"]["GetDepartureArrivalResult"]["Lines"]["Line"].all.map{ data in
             let dateString = data.getText(id: "JourneyDateTime")
@@ -79,7 +79,7 @@ class Parser {
         
     }
     
-    static func lineFromXmlToBussTimeInfo(data:XMLIndexer,arrival dateString:String, stopName :String?)-> BussTimeInfo  {
+    static func lineFromXmlToBussTimeInfo(data:XMLIndexer,arrival dateString:String, stopName :String)-> BussTimeInfo  {
         let name = data.getText(id: "Name") + " " + data.getText(id: "Towards")
         var arrivalTime = Parser.formatter.date(from: dateString )
         var addedMinute = 0.0
@@ -125,16 +125,16 @@ class Parser {
     }
     
     static func removeKnownPrifix(forStop stop : BussStop) -> BussStop {
-        if var name = stop.name {
-            for px in Parser.prefix {
-                if name.starts(with: px) {
-                    if name.count > px.count+3 {
-                        name =  name.components(separatedBy: " ").dropFirst(1).joined(separator: " ")
-                    }
-                    return BussStop(i: stop.id, n: name)
+        var name = stop.name
+        for px in Parser.prefix {
+            if name.starts(with: px) {
+                if name.count > px.count+3 {
+                    name =  name.components(separatedBy: " ").dropFirst(1).joined(separator: " ")
                 }
+                return BussStop(i: stop.id, n: name)
             }
         }
+        
         return stop
     }
     

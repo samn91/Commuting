@@ -80,7 +80,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let stop = rows[indexPath.row] as? BussStop {
-            let item = BussStop(i: stop.id,n: nil)
+            let item = BussStop(i: stop.id,n: stop.name)
             openStopInfoTableView(list: [item])
         } else if let route = rows[indexPath.row] as? RouteInfo {
             openStopInfoTableView(forRoute: route)

@@ -71,9 +71,9 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
             selected = Parser.removeKnownPrifix(forStop: selected)
             if routeSelector == StopSelectorTableView.FROM {
                 routeSelector = StopSelectorTableView.TO
-                fromLabel.text = StopSelectorTableView.FROM + selected.name!
+                fromLabel.text = StopSelectorTableView.FROM + selected.name
             } else {
-                toLabel.text = StopSelectorTableView.TO + selected.name!
+                toLabel.text = StopSelectorTableView.TO + selected.name
                 Saver.addRoute(route: RouteInfo(from: lastSelected!, to: selected))
                 existView()
             }

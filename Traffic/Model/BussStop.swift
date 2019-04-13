@@ -23,8 +23,8 @@ struct BussStop : CustomStringConvertible {
      </Point>
      */
     var id:String
-    var name:String?
-    init(i:String,n:String?) {
+    var name:String
+    init(i:String,n:String) {
         id=i
         name=n
     }
@@ -35,7 +35,7 @@ struct BussStop : CustomStringConvertible {
     
     
     func toXmlString() -> String {
-        return "<Stop><Id>\(id)</Id><Name>\(name!)</Name></Stop>"
+        return "<Stop><Id>\(id)</Id><Name>\(name)</Name></Stop>"
     }
     
 }
