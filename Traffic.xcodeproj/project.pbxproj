@@ -11,6 +11,7 @@
 		F06667F721350091007FEE70 /* BussStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06667F621350091007FEE70 /* BussStop.swift */; };
 		F0A82E50214437DC009567FA /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A82E4F214437DC009567FA /* RouteInfo.swift */; };
 		F0BF84292262FE9D006FC56A /* Adapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BF84282262FE9D006FC56A /* Adapter.swift */; };
+		F0BF842B22638309006FC56A /* CustomCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BF842A22638309006FC56A /* CustomCollectionCell.swift */; };
 		F0E0450B213A237100828DF3 /* Saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0450A213A237100828DF3 /* Saver.swift */; };
 		F0EBA31E21347E2E002CBF9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */; };
 		F0EBA32021347E2E002CBF9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBA31F21347E2E002CBF9D /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 		F06667F621350091007FEE70 /* BussStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BussStop.swift; sourceTree = "<group>"; };
 		F0A82E4F214437DC009567FA /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
 		F0BF84282262FE9D006FC56A /* Adapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adapter.swift; sourceTree = "<group>"; };
+		F0BF842A22638309006FC56A /* CustomCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCell.swift; sourceTree = "<group>"; };
 		F0E0450A213A237100828DF3 /* Saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saver.swift; sourceTree = "<group>"; };
 		F0EBA31A21347E2E002CBF9D /* Traffic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Traffic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0EBA31D21347E2E002CBF9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				F0F5A11F2136F875001CBD63 /* StopInfoTableView.swift */,
 				F0F5A12521387AA3001CBD63 /* StopSelectorTableView.swift */,
 				F0BF84282262FE9D006FC56A /* Adapter.swift */,
+				F0BF842A22638309006FC56A /* CustomCollectionCell.swift */,
 			);
 			path = MainStoryBoard;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				F0BF84292262FE9D006FC56A /* Adapter.swift in Sources */,
 				F06667F721350091007FEE70 /* BussStop.swift in Sources */,
 				F0A82E50214437DC009567FA /* RouteInfo.swift in Sources */,
+				F0BF842B22638309006FC56A /* CustomCollectionCell.swift in Sources */,
 				F0EBA33221348368002CBF9D /* Parser.swift in Sources */,
 				F0E0450B213A237100828DF3 /* Saver.swift in Sources */,
 				F0EBA32021347E2E002CBF9D /* ViewController.swift in Sources */,

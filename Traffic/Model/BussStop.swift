@@ -33,7 +33,6 @@ struct BussStop : CustomStringConvertible {
       return  BussStop(i: xml.getText(id: "Id"),n: xml.getText(id: "Name"))
     }
     
-    
     func toXmlString() -> String {
         return "<Stop><Id>\(id)</Id><Name>\(name)</Name></Stop>"
     }
