@@ -49,12 +49,11 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         let stopNameAndPoint = multipleStops ?  "\(stopInfo.stopName)-\(stopInfo.stopPoint):" : stopPoint
         if multipleStops {
             cell.textLabel?.font = cell.textLabel?.font.withSize(13.0)
-        } else{
-            cell.textLabel?.font = cell.textLabel?.font.withSize(16.0)
+        } else {
+            cell.textLabel?.font = cell.textLabel?.font.withSize(UIFont.systemFontSize)
         }
         cell.textLabel?.text = stopNameAndPoint + " "
               + relativeTime + " - " + stopInfo.name
-        
         
         cell.textLabel?.highlightRange(stopPoint)//
         return cell
@@ -78,13 +77,13 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if routeInfo != nil {//todo remove when implementing filters
             Downloader.downloadRoute(routeInfo!){
-                self.rows=$0
+                self.rows = $0
                 self.tableView.reloadData()
                 self.refreshView.endRefreshing()
             }
         } else if bussStops != nil {
             if self.bussStops?.count == 1 { // show title
-                navigationController?.title=self.bussStops?[0].name
+                self.title = self.bussStops![0].name
             }
             for stop in self.bussStops! {
                 Downloader.downloadBussInfo(stop: stop) { (list) in
@@ -94,7 +93,7 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.rows.sort{ $0.time<$1.time }
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
-                        self.numberOfBussStopDownloaded=self.bussStops?.count ?? 0
+                        self.numberOfBussStopDownloaded = self.bussStops?.count ?? 0
                     }
                 }
             }
@@ -104,13 +103,10 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
 
 extension UILabel{
     func highlightRange(_ textToHightlight:String){
-        //let range = NSRange(location: from,length: to-from)
-        
-        let range = (text as! NSString).range(of: textToHightlight)
+        let range = (text! as NSString).range(of: textToHightlight)
         
         let attributedText = NSMutableAttributedString.init(string: text!)
-        UIFont(name: "Courier", size: UIFont.systemFontSize)
-        attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont.monospacedDigitSystemFont(ofSize: UIFont.systemFontSize, weight: UIFont.Weight.bold) , range: range)
+       // attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont.monospacedDigitSystemFont(ofSize: UIFont.systemFontSize, weight: UIFont.Weight.medium) , range: range)
         attributedText.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor.green , range: range)
         attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.white , range: range)
         self.attributedText = attributedText
