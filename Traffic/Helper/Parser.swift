@@ -48,7 +48,8 @@ class Parser {
                 let dateString = journy.getText(id: "DepDateTime")
                 let route = journy["RouteLinks"]["RouteLink"]
                 let line=route["Line"]
-                let name = line.getText(id: "Name") + " " + line.getText(id: "Towards")
+                let name = line.getText(id: "Name")
+                let towards = line.getText(id: "Towards")
                 var arrivalTime = Parser.formatter.date(from: dateString )
                 var addedMinute = 0.0
                 let isRealTime = route["RealTime"].children.count > 0
@@ -56,7 +57,7 @@ class Parser {
                     addedMinute =  60 * Double(route["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
                 }
                 arrivalTime?.addTimeInterval(addedMinute)
-                return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime, sp:"TODO")
+                return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime, sp:"TODO")
         }
     }
     
@@ -65,30 +66,32 @@ class Parser {
         
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetDepartureArrivalResponse"]["GetDepartureArrivalResult"]["Lines"]["Line"].all.map{ data in
             let dateString = data.getText(id: "JourneyDateTime")
-            let name = data.getText(id: "Name") + " " + data.getText(id: "Towards")
+            let name = data.getText(id: "Name")
+            let towards = data.getText(id: "Towards")
             let stopPoint = data.getText(id:"StopPoint")
             var arrivalTime = Parser.formatter.date(from: dateString )
             var addedMinute = 0.0
             let isRealTime = data["RealTime"].children.count > 0
-            if data["RealTime"].children.count > 0 {
+            if isRealTime {
                 addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
             }
             arrivalTime?.addTimeInterval(addedMinute)
-            return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime,sp:stopPoint)
+            return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime,sp:stopPoint)
         }
         
     }
     
     static func lineFromXmlToBussTimeInfo(data:XMLIndexer,arrival dateString:String, stopName :String)-> BussTimeInfo  {
-        let name = data.getText(id: "Name") + " " + data.getText(id: "Towards")
+        let name = data.getText(id: "Name")
+        let towards = data.getText(id: "Towards")
         var arrivalTime = Parser.formatter.date(from: dateString )
         var addedMinute = 0.0
         let isRealTime = data["RealTime"].children.count > 0
-        if data["RealTime"].children.count > 0 {
+        if isRealTime {
             addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
         }
         arrivalTime?.addTimeInterval(addedMinute)
-        return BussTimeInfo(n: name,t: arrivalTime!,s:stopName, r:isRealTime, sp: "TODO")
+        return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime, sp: "TODO")
         
     }
     

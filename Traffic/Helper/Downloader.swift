@@ -57,8 +57,6 @@ class Downloader {
                 executeAfter(parser)
             }
         }
-        
-        
     }
     
     static  func download(_ url:URL, executeAfter:@escaping (_ data:Data) -> Void) {
@@ -67,6 +65,8 @@ class Downloader {
                 print(error ?? "Unknown error")
                 return
             }
+           // let dataString = String(data: data, encoding: String.Encoding.utf8) ?? "Data could not be printed"
+            //print(dataString)
             executeAfter(data)
         }
         task.resume()

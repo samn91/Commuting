@@ -15,17 +15,22 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBOutlet weak var refreshView: UIRefreshControl!
     private var rows : Array<BussTimeInfo> = []
     private var numberOfBussStopDownloaded = 0
+    private var multipleStops=false
     var routeInfo:RouteInfo?=nil
     var bussStops:Array<BussStop>? = nil
     {
         didSet{
-            numberOfBussStopDownloaded=bussStops?.count ?? 0
+            if let count = bussStops?.count{
+                numberOfBussStopDownloaded = count
+                multipleStops = count > 1
+            }
         }
     }
     
     override func viewDidLoad() {
         downloadContent()
         NotificationCenter.default.addObserver(self, selector:#selector(downloadContent), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        let adapter = Adapter(self.multipleStops)
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -40,35 +45,27 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell", for: indexPath)
-        let stopInfo = self.rows[indexPath.row]
-        
-        let multipleStops = self.bussStops!.count > 1
-        let relativeTime = Parser.timeFormatter.string(from: stopInfo.time) +
-            (stopInfo.isRealTime ? " " : "*")
-        let stopPoint = " \(stopInfo.stopPoint) "
-        let stopNameAndPoint = multipleStops ?  "\(stopInfo.stopName)-\(stopInfo.stopPoint):" : stopPoint
-        if multipleStops {
+        if self.multipleStops {
             cell.textLabel?.font = cell.textLabel?.font.withSize(13.0)
         } else {
             cell.textLabel?.font = cell.textLabel?.font.withSize(UIFont.systemFontSize)
         }
+        
+        let stopInfo = self.rows[indexPath.row]
+
+        let stopPoint = " \(stopInfo.stopPoint) "
+        let stopNameAndPoint = self.multipleStops ?  "\(stopInfo.stopName)-\(stopInfo.stopPoint):" : stopPoint
+        
         cell.textLabel?.text = stopNameAndPoint + " "
-              + relativeTime + " - " + stopInfo.name
+              + stopInfo.getRelativeTime() + " - " + stopInfo.getNameAndDriaction()
         
-        cell.textLabel?.highlightRange(stopPoint)//
+        cell.textLabel?.highlightRange(stopPoint)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var selected=rows[indexPath.row]
-       
-        
     }
     
     @IBAction func onRefreshing(_ sender: UIRefreshControl) {
         self.downloadContent()
     }
-    
     
     @objc func downloadContent()  {
         rows.removeAll()
@@ -82,7 +79,7 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.refreshView.endRefreshing()
             }
         } else if bussStops != nil {
-            if self.bussStops?.count == 1 { // show title
+            if !self.multipleStops && !self.bussStops!.isEmpty { // show title
                 self.title = self.bussStops![0].name
             }
             for stop in self.bussStops! {
@@ -93,7 +90,7 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
                         self.rows.sort{ $0.time<$1.time }
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
-                        self.numberOfBussStopDownloaded = self.bussStops?.count ?? 0
+                        self.numberOfBussStopDownloaded = self.bussStops!.count
                     }
                 }
             }

@@ -33,16 +33,26 @@ struct BussTimeInfo {
     
     
     var name:String
+    var toward:String
     var time:Date
     var stopName:String
     var isRealTime:Bool
     let stopPoint:String
-    init(n:String,t:Date,s:String,r:Bool,sp:String) {
+    init(n:String,t:String,ti:Date,s:String,r:Bool,sp:String) {
         name=n
-        time=t
+        toward=t
+        time=ti
         stopName=s
         isRealTime=r
         stopPoint=sp
     }
     
+    func getNameAndDriaction() -> String {
+        return name+" "+toward
+    }
+    
+    func getRelativeTime() -> String {
+        return Parser.timeFormatter.string(from: time) +
+            (isRealTime ? " " : "*")
+    }
 }
