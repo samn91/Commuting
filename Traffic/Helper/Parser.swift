@@ -68,12 +68,14 @@ class Parser {
             let dateString = data.getText(id: "JourneyDateTime")
             let name = data.getText(id: "Name")
             let towards = data.getText(id: "Towards")
-            let stopPoint = data.getText(id:"StopPoint")
+            var stopPoint = data.getText(id:"StopPoint")
             var arrivalTime = Parser.formatter.date(from: dateString )
             var addedMinute = 0.0
             let isRealTime = data["RealTime"].children.count > 0
             if isRealTime {
-                addedMinute =  60 * Double(data["RealTime"]["RealTimeInfo"]["DepTimeDeviation"].element?.text ?? "0")!
+               let realTimeInfo=data["RealTime"]["RealTimeInfo"]
+                addedMinute =  60 * Double(realTimeInfo["DepTimeDeviation"].element?.text ?? "0")!
+              stopPoint =  realTimeInfo.getText(id: "NewDepPoint").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             }
             arrivalTime?.addTimeInterval(addedMinute)
             return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime,sp:stopPoint)
