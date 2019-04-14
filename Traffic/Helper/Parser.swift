@@ -75,7 +75,9 @@ class Parser {
             if isRealTime {
                let realTimeInfo=data["RealTime"]["RealTimeInfo"]
                 addedMinute =  60 * Double(realTimeInfo["DepTimeDeviation"].element?.text ?? "0")!
-              stopPoint =  realTimeInfo.getText(id: "NewDepPoint").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+              
+                stopPoint =  realTimeInfo.getTextOrEmpty(id: "NewDepPoint").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                
             }
             arrivalTime?.addTimeInterval(addedMinute)
             return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime,sp:stopPoint)
@@ -148,6 +150,9 @@ class Parser {
 extension XMLIndexer{
     func getText(id:String)->String {
         return self[id].element!.text
+    }
+    func getTextOrEmpty(id:String)->String {
+        return self[id].element?.text ?? ""
     }
 }
 

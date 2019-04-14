@@ -15,7 +15,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var hereButton: UIButton!
     
     var rows:Array<CustomStringConvertible> = []
     
@@ -38,7 +37,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         rows.removeAll()
-        Saver.getRoutes().forEach { rows.append($0) }
         Saver.getBussStop().forEach { rows.append($0) }
         
         tableView.reloadData()
@@ -50,21 +48,18 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
                 if  let stops = sender as? [BussStop] {
                     tv.bussStops = Parser.removeKnownPrifix(stops: stops)
                     tv.title=(sender as? UIButton)?.titleLabel?.text
-                } else if let route = sender as? RouteInfo {
-                    tv.routeInfo = route
                 }
             }
         }
     }
     
-    @IBAction func hereCliecked(_ sender: UIButton) {
-        sender.isEnabled = false
+    @IBAction func hoonClicked(_ sender: UIBarButtonItem) {
+        //sender.isEnabled = false
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows.count
@@ -109,7 +104,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         Downloader.downloadBussStopForPoint(String(locValue.latitude), String(locValue.longitude)) { (list) in
             self.openStopInfoTableView(list: list)
-            self.hereButton.isEnabled=true
             self.hadLocationUpdate=false
         }
     }

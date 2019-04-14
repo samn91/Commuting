@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hsJ-Yk-e5b">
-                                <rect key="frame" x="0.0" y="140" width="320" height="340"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableCell" id="OW1-x1-SQL">
@@ -33,20 +33,11 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Np2-9I-liQ">
-                                <rect key="frame" x="267" y="90" width="33" height="30"/>
-                                <state key="normal" title="Here"/>
-                                <connections>
-                                    <action selector="hereCliecked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7DG-dK-oNQ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hsJ-Yk-e5b" secondAttribute="trailing" id="4zI-y6-cgp"/>
-                            <constraint firstItem="Np2-9I-liQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="26" id="GOP-ao-rpE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Np2-9I-liQ" secondAttribute="trailing" constant="20" id="JOS-pL-KZ1"/>
-                            <constraint firstItem="hsJ-Yk-e5b" firstAttribute="top" secondItem="Np2-9I-liQ" secondAttribute="bottom" constant="20" id="Lcd-pU-Na0"/>
+                            <constraint firstItem="hsJ-Yk-e5b" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9rb-nW-xYs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hsJ-Yk-e5b" secondAttribute="bottom" id="nHX-VX-7D3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hsJ-Yk-e5b" secondAttribute="bottom" id="q1W-WT-5qw"/>
                             <constraint firstItem="hsJ-Yk-e5b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xsF-gk-Qz9"/>
@@ -54,21 +45,25 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="xbp-at-pmc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kzd-v2-KXK">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="Kzd-v2-KXK">
                             <connections>
                                 <segue destination="QCz-ru-FdK" kind="show" id="g3t-sH-4CX"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="HooN" id="z5l-Jw-btR">
+                            <connections>
+                                <action selector="hoonClicked:" destination="BYZ-38-t0r" id="3CU-gE-86Z"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="hereButton" destination="Np2-9I-liQ" id="2S5-Zq-5Dp"/>
                         <outlet property="tableView" destination="hsJ-Yk-e5b" id="k7l-tZ-a57"/>
                         <segue destination="Iz7-0u-zC1" kind="show" identifier="stopInfoSegue" id="XIA-47-TXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092" y="134"/>
+            <point key="canvasLocation" x="1091.25" y="133.75"/>
         </scene>
         <!--Stop Selector Table View-->
         <scene sceneID="Gq9-0b-e38">
@@ -78,47 +73,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" distribution="fillEqually" id="Fsw-X6-EX0">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="105"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <searchBar contentMode="redraw" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1Ir-4I-jQZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aXB-yq-OOS">
-                                    <rect key="frame" x="0.0" y="52.5" width="320" height="16"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSF-9O-79Z">
-                                            <rect key="frame" x="8" y="8" width="148" height="0.0"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stw-y5-rtG">
-                                            <rect key="frame" x="164" y="8" width="148" height="0.0"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
-                                </stackView>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PU1-i1-Dfe">
-                                    <rect key="frame" x="0.0" y="52.5" width="320" height="53.5"/>
-                                    <segments>
-                                        <segment title="Stop"/>
-                                        <segment title="Route"/>
-                                    </segments>
-                                    <connections>
-                                        <action selector="routeValueChanged:" destination="QCz-ru-FdK" eventType="valueChanged" id="f63-aL-9jb"/>
-                                    </connections>
-                                </segmentedControl>
-                            </subviews>
-                        </stackView>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="aMD-1T-fsR">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="9D2-5I-XU3">
-                                <rect key="frame" x="0.0" y="133" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9D2-5I-XU3" id="Rq6-CB-oy2">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -132,10 +94,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="fromLabel" destination="kSF-9O-79Z" id="Fbz-KS-FR3"/>
-                        <outlet property="routeContainer" destination="aXB-yq-OOS" id="2pZ-Nn-MVR"/>
-                        <outlet property="searchBar" destination="1Ir-4I-jQZ" id="X0O-QH-Fu7"/>
-                        <outlet property="toLabel" destination="Stw-y5-rtG" id="ksH-Sj-RMh"/>
+                        <outlet property="searchBar" destination="aMD-1T-fsR" id="Gty-Fm-Heb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FZz-qZ-JSo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -174,7 +133,7 @@
         <scene sceneID="SPw-7t-VQz">
             <objects>
                 <tableViewController id="Iz7-0u-zC1" customClass="StopInfoTableView" customModule="Traffic" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="vf4-sr-e4W">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="50" estimatedSectionHeaderHeight="40" sectionFooterHeight="28" id="vf4-sr-e4W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -186,22 +145,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FAK-5L-b4u">
-                                        <size key="itemSize" width="50" height="50"/>
+                                        <size key="itemSize" width="50" height="38"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="2"/>
                                     </collectionViewFlowLayout>
                                     <cells>
                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="bfT-ib-haE" customClass="CustomCollectionCell" customModule="Traffic" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="-3" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <rect key="frame" x="2" y="3" width="50" height="38"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="38"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20c-02-RzA">
-                                                        <rect key="frame" x="3.9156332924721937" y="14" width="42" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <rect key="frame" x="4" y="9" width="42" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -218,7 +177,7 @@
                         </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="1P6-UH-osN">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="94" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1P6-UH-osN" id="B6P-0j-ZKi">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>

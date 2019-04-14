@@ -9,15 +9,16 @@
 import Foundation
 import UIKit
 
-class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource {
+class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var refreshView: UIRefreshControl!
-    private var rows : Array<BussTimeInfo> = []
+    private var fullRows : Array<BussTimeInfo> = []
+    private var filteredRows : Array<BussTimeInfo> = []
     private var numberOfBussStopDownloaded = 0
     private var multipleStops=false
-    var routeInfo:RouteInfo?=nil
+    private var selectedStopPoint:String?=nil
     var stopPoints=Array<String>()
     var bussStops:Array<BussStop>? = nil
     {
@@ -39,6 +40,7 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         let adapter = Adapter(self.multipleStops)
         tableView.dataSource = self
         tableView.delegate = self
+        collectionView.delegate = self
         collectionView.dataSource = self
     }
     
@@ -49,14 +51,27 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CustomCollectionCell
-        cell.contentView.backgroundColor=UIColor.cyan
         
-        cell.label.text = stopPoints[indexPath.row]
+        let point=stopPoints[indexPath.row]
+        let weight = selectedStopPoint==point ? UIFont.Weight.bold: UIFont.Weight.medium
+        
+        cell.label.textColor = selectedStopPoint==point ? UIColor.black : UIColor.lightGray
+        cell.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: weight)
+        
+        cell.label.text = point
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let stopPoint = self.stopPoints[ indexPath.item]
+        self.selectedStopPoint=stopPoint
+        self.filteredRows = self.fullRows.filter{$0.stopPoint==stopPoint}
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rows.count
+        return self.filteredRows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,10 +82,10 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell.textLabel?.font = cell.textLabel?.font.withSize(UIFont.systemFontSize)
         }
         
-        let stopInfo = self.rows[indexPath.row]
+        let stopInfo = self.filteredRows[indexPath.row]
         
-        let stopPoint = " \(stopInfo.stopPoint) "
-        let stopNameAndPoint = self.multipleStops ?  "\(stopInfo.stopName)-\(stopInfo.stopPoint):" : stopPoint
+        let stopPoint = " \(stopInfo.stopPoint.isEmpty ? "?" : stopInfo.stopPoint) "
+        let stopNameAndPoint = self.multipleStops ?  "\(stopInfo.stopName) \(stopPoint):" : stopPoint
         
         cell.textLabel?.text = stopNameAndPoint + " "
             + stopInfo.getRelativeTime() + " - " + stopInfo.getNameAndDriaction()
@@ -84,29 +99,23 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     @objc func downloadContent()  {
-        rows.removeAll()
+        self.fullRows.removeAll()
         tableView.reloadData()
         refreshView.beginRefreshing()
         
-        if routeInfo != nil {//todo remove when implementing filters
-            Downloader.downloadRoute(routeInfo!){
-                self.rows = $0
-                self.tableView.reloadData()
-                self.refreshView.endRefreshing()
-            }
-        } else if bussStops != nil {
+        if bussStops != nil {
             if !self.multipleStops && !self.bussStops!.isEmpty { // show title
                 self.title = self.bussStops![0].name
             }
             for stop in self.bussStops! {
                 Downloader.downloadBussInfo(stop: stop) { (list) in
                     self.numberOfBussStopDownloaded -= 1
-                    self.rows+=list
+                    self.fullRows+=list
                     if self.numberOfBussStopDownloaded == 0 {
-                        let stopslist=self.rows.map{$0.stopPoint.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }.filter{!$0.isEmpty}.sorted()//todo fix sorting
+                        let stopslist=self.fullRows.map{$0.stopPoint.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }.filter{!$0.isEmpty}.sorted()//todo fix sorting
                         self.stopPoints = Array(Set(stopslist))
                         self.collectionView.reloadData()
-                        self.rows.sort{ $0.time<$1.time }
+                       self.filteredRows = self.fullRows.sorted{ $0.time<$1.time }
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
                         self.numberOfBussStopDownloaded = self.bussStops!.count
