@@ -17,9 +17,9 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     private var fullRows : Array<BussTimeInfo> = []
     private var filteredRows : Array<BussTimeInfo> = []
     private var numberOfBussStopDownloaded = 0
-    private var multipleStops=false
-    private var selectedStopPoint:String?=nil
-    var stopPoints=Array<String>()
+    private var multipleStops = false
+    private var selectedStopPoints = Array<String>()
+    var stopPoints = Array<String>()
     var bussStops:Array<BussStop>? = nil
     {
         didSet{
@@ -32,6 +32,12 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    
+    //helper function
+    private func isThere(_ array: Array<String>, _ element: String) -> Bool{
+        return array.index(of: element) == nil ? false : true
     }
     
     override func viewDidLoad() {
@@ -53,9 +59,10 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CustomCollectionCell
         
         let point = stopPoints[indexPath.row]
-        let weight = selectedStopPoint==point ? UIFont.Weight.bold: UIFont.Weight.medium
         
-        cell.label.textColor = selectedStopPoint==point ? UIColor.black : UIColor.lightGray
+        let weight = isThere(selectedStopPoints, point) ? UIFont.Weight.bold : UIFont.Weight.medium
+        
+        cell.label.textColor = isThere(selectedStopPoints, point) ? UIColor.black : UIColor.lightGray
         cell.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: weight)
         
         cell.label.text = point
@@ -65,12 +72,16 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let stopPoint = self.stopPoints[indexPath.item]
-        if (self.selectedStopPoint == stopPoint) {//already selected, remove filter
-            self.selectedStopPoint = nil
+        let spIndex: Int? = selectedStopPoints.index(of: stopPoint)
+        if (spIndex != nil) { //already selected, remove filter
+            self.selectedStopPoints.remove(at: spIndex!)
+        } else {
+            self.selectedStopPoints.append(stopPoint)
+        }
+        if (selectedStopPoints.isEmpty){
             self.filteredRows = self.fullRows
         } else {
-            self.selectedStopPoint = stopPoint
-            self.filteredRows = self.fullRows.filter{$0.stopPoint==stopPoint}
+            self.filteredRows = self.fullRows.filter{selectedStopPoints.index(of: $0.stopPoint) != nil }
         }
         tableView.reloadData()
         collectionView.reloadData()
