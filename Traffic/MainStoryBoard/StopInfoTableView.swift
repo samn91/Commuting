@@ -52,7 +52,7 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CustomCollectionCell
         
-        let point=stopPoints[indexPath.row]
+        let point = stopPoints[indexPath.row]
         let weight = selectedStopPoint==point ? UIFont.Weight.bold: UIFont.Weight.medium
         
         cell.label.textColor = selectedStopPoint==point ? UIColor.black : UIColor.lightGray
@@ -61,11 +61,17 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.label.text = point
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let stopPoint = self.stopPoints[ indexPath.item]
-        self.selectedStopPoint=stopPoint
-        self.filteredRows = self.fullRows.filter{$0.stopPoint==stopPoint}
+        let stopPoint = self.stopPoints[indexPath.item]
+        if (self.selectedStopPoint == stopPoint) {//already selected, remove filter
+            self.selectedStopPoint = nil
+            self.filteredRows = self.fullRows
+        } else {
+            self.selectedStopPoint = stopPoint
+            self.filteredRows = self.fullRows.filter{$0.stopPoint==stopPoint}
+        }
         tableView.reloadData()
         collectionView.reloadData()
     }

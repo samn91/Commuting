@@ -20,7 +20,6 @@ class Parser {
         }
     }
     
-    
     static var timeFormatter :DateFormatter{
         get{
             let x=DateFormatter()
@@ -28,7 +27,6 @@ class Parser {
             return x
         }
     }
-    
     
     static func getBussStops(data:Data) -> Array<BussStop> {
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetStartEndPointResponse"]["GetStartEndPointResult"]["StartPoints"]["Point"].all.map{ point in BussStop(i: point.getText(id: "Id"),n: point.getText(id: "Name")) }
@@ -39,7 +37,6 @@ class Parser {
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetNearestStopAreaResponse"]["GetNearestStopAreaResult"]["NearestStopAreas"]["NearestStopArea"].all.map{ point in BussStop(i: point.getText(id: "Id"),n: point.getText(id: "Name")) }
         
     }
-    
     
     static func getBussStopInfoForRoute(data:Data,stopName:String) -> Array<BussTimeInfo> {
         return SWXMLHash.parse(data)["soap:Envelope"]["soap:Body"]["GetJourneyResponse"]["GetJourneyResult"]["Journeys"]["Journey"].all
@@ -60,7 +57,6 @@ class Parser {
                 return BussTimeInfo(n: name,t:towards,ti: arrivalTime!,s:stopName, r:isRealTime, sp:"TODO")
         }
     }
-    
     
     static func getBussStopInfo(data:Data,stopName:String ) -> Array<BussTimeInfo> {
         
@@ -114,7 +110,6 @@ class Parser {
     static func routeToString(list:Array<RouteInfo>) -> String {
         return "<List>" + list.map { "<Route><From>\($0.from.toXmlString())</From><To>\($0.to.toXmlString())</To></Route>"}.joined(separator: "") + "</List>"
     }
-    
     
     static func parseStringToRoutes(text:String?)->Array<RouteInfo>{
         if text == nil || text!.isEmpty {

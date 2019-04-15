@@ -8,7 +8,6 @@
 
 import Foundation
 class Downloader {
-    
     static func downloadBussInfo(stop:BussStop,executeAfter:@escaping (_ list:Array<BussTimeInfo>) -> Void) {
         let url=URL(string: "http://www.labs.skanetrafiken.se/v2.2/stationresults.asp?selPointFrKey=" + stop.id)!
         download(url) { (data) in

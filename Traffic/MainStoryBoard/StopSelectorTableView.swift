@@ -19,7 +19,7 @@ class StopSelectorTableView : UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar:UISearchBar!
     
     override func viewDidLoad() {
-        searchBar.delegate=self
+        searchBar.delegate = self
         tableView.delegate = self
     }
     

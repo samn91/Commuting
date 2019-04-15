@@ -54,7 +54,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     }
     
     @IBAction func hoonClicked(_ sender: UIBarButtonItem) {
-        //sender.isEnabled = false
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
