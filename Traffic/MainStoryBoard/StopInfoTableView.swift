@@ -74,15 +74,19 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
         let stopPoint = self.stopPoints[indexPath.item]
         let spIndex: Int? = selectedStopPoints.index(of: stopPoint)
         if (spIndex != nil) { //already selected, remove filter
-            self.selectedStopPoints.remove(at: spIndex!)
+            if self.selectedStopPoints.count == 0 {
+                self.selectedStopPoints.remove(at: spIndex!)
+                selectedStopPoints.insert(contentsOf: stopPoints, at: 0)
+            } else if self.selectedStopPoints.count == stopPoints.count {
+                selectedStopPoints.removeAll()
+                self.selectedStopPoints.append(stopPoint)
+            } else {
+                self.selectedStopPoints.remove(at: spIndex!)
+            }
         } else {
             self.selectedStopPoints.append(stopPoint)
         }
-        if (selectedStopPoints.isEmpty){
-            self.filteredRows = self.fullRows
-        } else {
-            self.filteredRows = self.fullRows.filter{selectedStopPoints.index(of: $0.stopPoint) != nil }
-        }
+        applyStopPointFilter()
         tableView.reloadData()
         collectionView.reloadData()
     }
@@ -132,7 +136,10 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
                         let stopslist=self.fullRows.map{$0.stopPoint.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }.filter{!$0.isEmpty}.sorted()//todo fix sorting
                         self.stopPoints = Array(Set(stopslist))
                         self.collectionView.reloadData()
-                       self.filteredRows = self.fullRows.sorted{ $0.time<$1.time }
+                        if self.selectedStopPoints.count == 0 {
+                            self.selectedStopPoints.insert(contentsOf: self.stopPoints, at: 0)
+                        }
+                        self.applyStopPointFilter()
                         self.tableView.reloadData()
                         self.refreshView.endRefreshing()
                         self.numberOfBussStopDownloaded = self.bussStops!.count
@@ -140,6 +147,15 @@ class StopInfoTableView: UIViewController,UITableViewDelegate,UITableViewDataSou
                 }
             }
         }
+    }
+    
+    func applyStopPointFilter()  {
+        if (selectedStopPoints.isEmpty){
+            self.filteredRows = self.fullRows
+        } else {
+            self.filteredRows = self.fullRows.filter{selectedStopPoints.index(of: $0.stopPoint) != nil }
+        }
+        self.filteredRows = self.filteredRows.sorted{ $0.time<$1.time }
     }
 }
 
